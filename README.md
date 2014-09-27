@@ -1,8 +1,9 @@
 Electrophys
 ===========
 
-IT WORKS!! Using step size of 0.05 appears to work. 
+IT WORKS!! Using step size of 0.05 appears to work. Fixed bug where input time did not affect step pulse time.
 
+    
     function hodgkinhuxley(iInputMag, iInputTime)
     
     vm = 0
@@ -47,6 +48,11 @@ IT WORKS!! Using step size of 0.05 appears to work.
     
     while i < time
         vm = vm
+        
+        if i >= iInputTime
+            iInputMag = 0
+        end
+            
         vmDerivative = iIon./cm
         
         mDerivative = alphaM.*(1 - m) - betaM.*m
@@ -90,6 +96,5 @@ IT WORKS!! Using step size of 0.05 appears to work.
     subplot(2,1,2), plot(exactTimeIntervals,gKGraph,'r',exactTimeIntervals,gNaGraph,'b'), title('gK and gNa'), xlabel('Time(ms)'), ylabel('Conductance (mS/cm^2)'), legend({'gK', 'gNa'})
     
     end
-
-
+    
 
